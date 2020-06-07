@@ -6,11 +6,8 @@ b站视频评论爬虫
 有两个发现：
 1.请求并不在XHR里面，在JS里
 2.参数里面如果加上了原有的callback就无法显示，删去之后一切正常
-
-1.
 """
 
-import time
 from urllib.parse import urlencode
 
 import requests
@@ -50,4 +47,3 @@ if __name__ == '__main__':
         print("性别：", sex)
         print("评论内容：", content)
         print("")
-        time.sleep(1)

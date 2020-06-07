@@ -102,16 +102,15 @@ if __name__ == '__main__':
                     "# div > div.WB_feed_handle > div > ul > li:nth-child(4) > a > span > span > span > em:nth-child(2)").text
                 weibo_content = q.select_one(
                     "# div > div.WB_feed_detail.clearfix > div.WB_detail > div:nth-child(5)").text
+                weibo_picture = []
                 if type := q.select_one(
                         "# div > div.WB_feed_detail.clearfix > div.WB_detail > div.WB_media_wrap.clearfix"):
                     weibo_type = "图文"
-                    weibo_picture = []
                     for z in type.select("# div.WB_media_wrap.clearfix > div > ul"):
                         picture = z.select_one("# li > img")["src"]
                         weibo_picture.append(picture)
                 else:
                     weibo_type = "文字"
-                    weibo_picture = []
 
                 print(weibo_time)
                 print(weibo_forward)

@@ -41,7 +41,6 @@ def parserHtml(html):  # 将获取的r.text文本传到这里进行解析
         # print(s)
     except:
         print('error')
-
     commentlist = []  # 储存所有评论信息的列表
 
     for i in range(20):

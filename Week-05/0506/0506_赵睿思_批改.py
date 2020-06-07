@@ -15,7 +15,7 @@ import pandas as pd
 import requests
 
 
-def fetchURL(url):
+def fetch_url(url):
     headers = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     while True:
         url = 'https://api.bilibili.com/x/v2/reply?type=1&oid=200750674&pn=' + str(page)
         try:
-            html = fetchURL(url)
+            html = fetch_url(url)
             parser_html(html)
             page += 1
             time.sleep(5)
