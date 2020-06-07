@@ -1,7 +1,9 @@
 """
 说明：#微信已支持改微信号# 超话内容
 
-
+1. 似乎需要在每次运行前替换新的Cookie(否则会遇到重定向的问题，和无法请求到目标内容的问题)
+2. 在字符串中如使用转义符，应使用转义符转义转义符或加r不转义
+3. re.sub方法可以直接使用字符串格式的正则表达式，不需要先re.compile
 """
 
 import re
@@ -25,14 +27,12 @@ if __name__ == "__main__":
         bs = BeautifulSoup(response.content.decode(errors="ignore"), 'lxml')
         for label in bs.select(
                 "#pl_feedlist_index > div:nth-child(1) > div > div > div.card-feed > div.content > p.txt"):
+
             # 内容整理
-            space = re.compile("^\s+|\s+$")
-            label1 = re.sub(space, "", label.text)  # 清除空格
-            pattern1 = '展开全文c+$'
-            pattern2 = '收起全文d+$'
-            if re.search(pattern1, label1) is not None:
+            label1 = re.sub(r"^\s+|\s+$", "", label.text)  # 清除空格
+            if not re.search('展开全文c+$', label1):
                 pass
             else:
-                label2 = re.sub(pattern2, '', label1)  # 整理展开全文&收起全文
+                label2 = re.sub('收起全文d+$', '', label1)  # 整理展开全文&收起全文
                 print(label2 + '\n')
                 time.sleep(1)
