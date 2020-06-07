@@ -1,14 +1,18 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
-目的：爬取B站视频里的评论
+说明：目的：爬取B站视频里的评论
+
+1. 在使用变量前，需检查变量是否有可能没有被定义
+2. 变量名和函数名建议使用下划线间隔的形式
+3. 函数最好有一个说明其功能的注释
+4. 可以减少只用一次的变量的定义
 """
-import requests
 import json
-import time
 import math
-import pandas as pd
 import os
+import time
+
+import pandas as pd
+import requests
 
 
 def check():  # 检查是否有这个文件，如果有就删除
@@ -17,7 +21,7 @@ def check():  # 检查是否有这个文件，如果有就删除
         os.remove(filename)
 
 
-def fetchURL(url):
+def fetch_url(url):
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0 WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
     }  # 修改头部
@@ -38,9 +42,9 @@ def fetchURL(url):
 def parserHtml(html):  # 将获取的r.text文本传到这里进行解析
     try:
         s = json.loads(html)  # 还原数据格式
-        # print(s)
     except:
         print('error')
+        return
 
     commentlist = []  # 储存所有评论信息的列表
 
@@ -73,9 +77,7 @@ def writePage(urating):  # 将commenlist里的内容写进表格里
 
 
 def writeTitle():  # 填写表格里的表头
-    hlist = ["名字", "性别", "时间", "评论", "点赞数", "回复数"]
-    titlelist = []
-    titlelist.append(hlist)
+    titlelist = [["名字", "性别", "时间", "评论", "点赞数", "回复数"]]
     writePage(titlelist)
 
 
@@ -124,7 +126,7 @@ if __name__ == '__main__':
         url = 'https://api.bilibili.com/x/v2/reply?type=1&oid=' + \
               str(BvToAv(Bv)) + '&pn=' + str(page)
         try:
-            html = fetchURL(url)
+            html = fetch_url(url)
             parserHtml(html)
             page = page + 1  # 翻页
             print('Page ' + str(page) + ' finished')
